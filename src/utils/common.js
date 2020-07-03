@@ -1,4 +1,4 @@
-export function timestampToTime(timestamp) {
+export function  format (timestamp) {
     let now = new Date(timestamp*1000);
     let year = now.getFullYear();    
     let month = now.getMonth()+1;    

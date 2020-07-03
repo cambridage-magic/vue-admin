@@ -12,7 +12,7 @@ export function setToKen(token){
 }
 
 export function getUserName(){
-    return  cookie.get(sernameKey)
+    return  cookie.get(usernameKey) || ''
 }
 
 export function  setUserName(username){

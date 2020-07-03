@@ -4,7 +4,7 @@ import {setToKen, setUserName,getUserName,removeToken,removeUserName} from   "..
   const  state ={
         isCollapse: JSON.parse(sessionStorage.getItem('isCollapse'))|| false,
         token:'',
-        username:getUserName || ''
+        username:getUserName() || ''
         
       }
   const  mutations = {
