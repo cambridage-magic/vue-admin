@@ -69,7 +69,7 @@
   <div class="black-space-30"></div>
   <el-table :data="tableData.item" border style="width: 100%"  @selection-change="handleSelectionChange">  v-loading="loading">
     <el-table-column type="selection" width="45"></el-table-column>
-    <el-table-column prop="title" label="标题" width="830"></el-table-column>
+    <el-table-column prop="title" label="标题" width="750"></el-table-column>
     <el-table-column prop="categoryId" label="类型" width="130" :formatter= "toCategory"></el-table-column>
     <el-table-column prop="createDate" label="日期" width="237" :formatter= "toDate"></el-table-column>
   <!--   <el-table-column prop="user" label="管理员" width="115"></el-table-column> -->
@@ -81,6 +81,11 @@
           @click="delete_item(scope.row.id)"
           size="mini"
           type="danger">删除</el-button>
+
+            <el-button  class="margin-left-10"  @click="infoDetail(scope.row)"
+     size="mini" >编辑详情</el-button> 
+         
+     
       </template>
     </el-table-column>
   </el-table>
@@ -110,12 +115,13 @@ import { reactive, ref, isRef, toRefs,watch,onMounted } from "@vue/composition-a
 import { global,common } from "@/utils/global_V3.0";
 import DialogInfo from "./dialog/info"
 import DialogInfoEdit from "./dialog/edit"
+
 import {GetInfoList,DeleteInfoItem} from  "../../api/news"
 import {format}  from "../../utils/common"
 export default {
   components:{
    DialogInfo,
-   DialogInfoEdit
+   DialogInfoEdit,
   },
   setup(props,{root}) {
     const { str: aaa, confirm } = global();
@@ -173,6 +179,31 @@ let  handleSelectionChange  =(val)=>{
     CId.value = d
   
 } 
+
+//传参
+  const infoDetail =(data)=>{
+
+     root.$store.commit("infoDetail/UPDATE_STATE_VALUE", {
+                id: {
+                    value: data.id,
+                    sessionKey: "infoId",
+                    session: true
+                },
+                title: {
+                    value: data.title,
+                    sessionKey: "infoTitle",
+                    session: true
+                }
+            });
+           root.$router.push({
+                name: "InfoDetail",
+                params: {
+                    id: data.id, 
+                    title: data.title
+                }
+            })        
+  }
+
 //筛选条件
  const formatData = () => {
             let requestData = {
@@ -304,7 +335,8 @@ let toCategory = (row, column, cellValue, index)  =>{
       toCategory,
       handleSelectionChange,
       search,
-      edit
+      edit,
+      infoDetail
       
     }
   }

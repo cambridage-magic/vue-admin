@@ -29,7 +29,6 @@ import {setToKen, setUserName,getUserName,removeToken,removeUserName} from   "..
                 Login(data).then((response)=>{
                    reslove(response)
                    const {token,username} = response.data
-                   console.log('response')
                    context.commit('SET_TOKEN',{token})
                    setToKen(token)
                    context.commit('SET_USER_NAME',{username})

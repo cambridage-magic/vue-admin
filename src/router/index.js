@@ -65,6 +65,15 @@ export default new Router({
           title:'信息分类'
           },
         component:()=>import("../views/Info/category.vue"),
+      },
+      {
+        path:'/infoDetail', 
+        name:'InfoDetail',
+        hidden:true,
+        meta:{
+          title:'信息详情'
+          },
+        component:()=>import("../views/Info/detail.vue"),
       }
     ]
    
