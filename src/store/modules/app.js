@@ -2,6 +2,7 @@ import { Login } from "../../api/login.js";
 import {setToKen, setUserName,getUserName,removeToken,removeUserName} from   "../../utils/app"
 
   const  state ={
+        roles:[],
         isCollapse: JSON.parse(sessionStorage.getItem('isCollapse'))|| false,
         token:'',
         username:getUserName() || ''
@@ -20,8 +21,16 @@ import {setToKen, setUserName,getUserName,removeToken,removeUserName} from   "..
          
           state.username = username
         },
+        //动态分配路由设置角色
+        SET_ROLES(state,value){
+          state.roles = value
+          
+      },
       
       }
+   const getters = {
+    roles: (state)=> state.roles,
+   }   
    const  actions = {
      /* 登录 */
           login(context,data){
@@ -46,6 +55,7 @@ import {setToKen, setUserName,getUserName,removeToken,removeUserName} from   "..
                 removeUserName()  
                 context.commit('SET_TOKEN',{token:''})
                 context.commit('SET_USER_NAME',{username:''})
+                context.commit('SET_ROLES',[])
                 resolve()
              }) 
           }
@@ -58,5 +68,6 @@ export default {
    state,
    mutations,
    actions,
+   getters
    
 }

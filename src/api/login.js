@@ -13,8 +13,14 @@ export const GetSms = (data)=>{
 })
 }
 
-/* 获取用户角色 */
-
+/* 获取用户角色(权限) */
+export const getUserRole = (data={})=>{
+  return server.request({
+    url:'/userRole/',
+    method:'post',
+    data
+})
+}
 
 /* 登录 */
  

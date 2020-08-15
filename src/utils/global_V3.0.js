@@ -1,6 +1,8 @@
 import { MessageBox, Form } from 'element-ui';
 import { ref, reactive } from '@vue/composition-api';
-import {GetCate,GetCategoryAll}  from "../api/news.js"
+import {GetCate,GetCategoryAll,GetInfoList}  from "../api/news.js"
+import {requestUrl}  from "../api/requestUrl"
+import {loadTableData} from "../api/common"
 export function global(){
     const str = ref('');
     const confirm = (params) => {
@@ -50,6 +52,36 @@ export function  common(){
   }
         
 
+}
+//获取用户列表数据
+export  function loadTable (params){
+    const tableData = reactive({
+        item:[
+            
+        ],
+        total: 0
+    })
+    const getUserList =(params)=>{
+       /* let requestJson = params  */
+      const reqdata = {
+          url:requestUrl[params.url],
+          data:params.requestInfo,
+          method:params.method
+      }
+     loadTableData(reqdata).then((response)=>{
+        /*  console.log('table') */
+        /*  console.log(response) */
+         tableData.item = response.data.data    
+         tableData.total = response.data.data.length === 0 ? 0 : response.data.total
+        
+     }).catch((error)=>{
+    console.log(console.error)
+     })
+    }
+    return{
+        tableData,
+        getUserList
+    }
 }
 
 

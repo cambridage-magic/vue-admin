@@ -167,7 +167,7 @@ export default {
     };
 
     const ruleForm = reactive({
-      username: "1300282894@qq.com",
+      username: "13000282894@qq.com",
       pwd: "bk990126",
       code: "",
       pwds: "bk990126"

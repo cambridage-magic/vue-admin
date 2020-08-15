@@ -40,14 +40,7 @@
       <div class="label-warp key-word">
         <label for>关键字:&nbsp;&nbsp;</label>
         <div class="warp-content">
-          <el-select v-model="search_key" placeholder="请选择" style="width:100%;">
-            <el-option
-              v-for="item in seaechOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
+          <Select :selectValue="data.selectValue" />
         </div>
       </div>
     </el-col>
@@ -115,13 +108,14 @@ import { reactive, ref, isRef, toRefs,watch,onMounted } from "@vue/composition-a
 import { global,common } from "@/utils/global_V3.0";
 import DialogInfo from "./dialog/info"
 import DialogInfoEdit from "./dialog/edit"
-
+import Select from "../../components/Select/Select"
 import {GetInfoList,DeleteInfoItem} from  "../../api/news"
 import {format}  from "../../utils/common"
 export default {
   components:{
    DialogInfo,
    DialogInfoEdit,
+   Select
   },
   setup(props,{root}) {
     const { str: aaa, confirm } = global();
@@ -131,16 +125,9 @@ export default {
     ]
     }
     );
-    const seaechOptions = reactive([
-      {
-        value: "id",
-        label: "ID"
-      },
-      {
-        value: "title",
-        label: "标题"
-      }
-    ]);
+     const data = reactive({
+     selectValue:['id','title']
+ })
     const tableData =reactive({
       item:[
       
@@ -315,7 +302,7 @@ let toCategory = (row, column, cellValue, index)  =>{
       options,
       categoryValue,
       dateValue,
-      seaechOptions,
+      data,
       search_key,
       search_work,
       tableData,

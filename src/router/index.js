@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
-export default new Router({
- routes:[
+
+//默认路由
+ export  const defaultRouterMap = [
   {
     path: '/',
     redirect:'login',
@@ -41,10 +42,15 @@ export default new Router({
       }
     ]
   },
+]
+//动态路由
+ export const asyncRouterMap =[
   {
     path: '/info',
     name: 'Info',
     meta:{
+      role:[],
+      system:'infoSystem',
       title:'信息管理',
       icon:"info"
       },
@@ -54,6 +60,7 @@ export default new Router({
         path:'/infoIndex',
         name:'InfoIndex',
         meta:{
+          role:['sale'],
           title:'信息列表'
           },
         component:()=>import("../views/Info/index.vue"),      
@@ -62,6 +69,7 @@ export default new Router({
         path:'/infoCategory',
         name:'InfoCategory',
         meta:{
+          role:['sale'],
           title:'信息分类'
           },
         component:()=>import("../views/Info/category.vue"),
@@ -71,6 +79,7 @@ export default new Router({
         name:'InfoDetail',
         hidden:true,
         meta:{
+          role:['sale'],
           title:'信息详情'
           },
         component:()=>import("../views/Info/detail.vue"),
@@ -83,6 +92,8 @@ export default new Router({
     path: '/user',
     name: 'User',
     meta:{
+      role:['sale'],
+      system:'userSystem',
       title:'用户管理',
       icon:"user"
         },
@@ -92,13 +103,18 @@ export default new Router({
           path:'/userIndex',
           name:'UserIndex',
           meta:{
+            role:['sale'],
             title:'用户信息'
             },
           component:()=>import("../views/User/index.vue"),
         }
       ]
   },
- ]
- 
+]
+
+
+export default new Router({
+ routes:defaultRouterMap
+
 });
 
